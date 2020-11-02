@@ -108,6 +108,9 @@ def euler_totient_function(n):
 
 
 def crt(n, divisor):
+    if divisor not in generate_prime(1,500):
+        print(f'{divisor} is not a prime')
+        return False
     divisor1, divisor2 = decompose_prime(divisor)
     if gcd(divisor1, divisor2) != 1:
         return 'divisors are not co-prime!'
