@@ -107,17 +107,21 @@ def euler_totient_function(n):
     return number
 
 
-def crt(n, divisor):
-    if divisor not in generate_prime(1,500):
-        print(f'{divisor} is not a prime')
-        return False
-    divisor1, divisor2 = decompose_prime(divisor)
+def crt(n=None, divisor=None, divisor1=None, divisor2=None, remainder1=None, remainder2=None):
+    if divisor:
+        if divisor not in generate_prime(1,500):
+            print(f'{divisor} is not a prime')
+            return False
+    if not divisor1 and not divisor2:
+        divisor1, divisor2 = decompose_prime(divisor)
     if gcd(divisor1, divisor2) != 1:
         return 'divisors are not co-prime!'
-    remainder1 = n % divisor1
-    remainder2 = n % divisor2
-    print(f'step 1: {n} mod{divisor1} = {remainder1}')
-    print(f'        {n} mod{divisor2} = {remainder2}')
+    if not remainder1 and not remainder2:
+        remainder1 = n % divisor1
+        remainder2 = n % divisor2
+    if n:
+        print(f'step 1: {n} mod{divisor1} = {remainder1}')
+        print(f'        {n} mod{divisor2} = {remainder2}')
     print(f'step 2: x = {remainder1} mod{divisor1}')
     print(f'step 3: x = {remainder2} mod{divisor2}')
     print(f'step 4: x = {divisor1}t + {remainder1} = {remainder2} mod{divisor2}')
@@ -134,7 +138,9 @@ def crt(n, divisor):
     print('sub (7) into (4)')
     print(f'step 8: x = {divisor1}({divisor2}s + {int(remainder)}) + {remainder1}')
     print(f'        x = {divisor1*divisor2}s + {remainder1+divisor2*counter+remainder2-remainder1}')
-    print(f'        x = {remainder1+divisor2*counter+remainder2-remainder1} when s = 0, and x < {n}')
+    print(f'        x = {remainder1+divisor2*counter+remainder2-remainder1} when s = 0')
+    if n:
+        print(f'               and x < {n}')
     return True
 
 
@@ -325,7 +331,8 @@ if __name__ == "__main__":
     miller_rabin(9233)
 
     # crt
-    crt(n=20**37, divisor=77)
+    crt(n=None, divisor=None, divisor1=5, divisor2=7, remainder1=3, remainder2=4)
+    crt(n=20 ** 37, divisor=77, divisor1=None, divisor2=None, remainder1=None, remainder2=None)
 
     # generator
     group_generator_with_mod_operation(p=11, divisor=11)
