@@ -79,7 +79,7 @@ class Transaction:
         sig = signer.sign(message.encode('utf-8'), private_key)
         txin.signature = sig
         return sig
-    
+
 
 class TxIn:
     """
@@ -456,10 +456,10 @@ class Blockchain:
 
         # Replace our chain if we discovered a new, valid chain longer than ours
         if new_chain and new_node:
+            for key in self.wallets.keys():
+                r.delete(key)
             self.chain = new_chain
             account_list = requests.get(f'http://{new_node}/accounts/')
-            for key in r.scan_iter("prefix:*"):
-                r.delete(key)
             for account in account_list.json():
                 self.wallets[account['user']] = account['amount of bitcoin']
                 r.set(self.wallets[account['user']], account['amount of bitcoin'])
