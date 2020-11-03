@@ -337,9 +337,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
     port = args.port
 
-    for key in blockchain.wallets.keys():
-        r.delete(key)
-
     app.run(host='0.0.0.0', port=port, debug=True)
     # app.run(host='192.168.0.157', port=port, debug=True)
 
