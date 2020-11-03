@@ -79,10 +79,7 @@ class Transaction:
         sig = signer.sign(message.encode('utf-8'), private_key)
         txin.signature = sig
         return sig
-
-    def __jsonencode__(self):
-        return {'block': self.__dict__}
-
+    
 
 class TxIn:
     """
